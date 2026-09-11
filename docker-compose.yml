@@ -1,0 +1,46 @@
+services:
+  aitalkedserver:
+    image: ghcr.io/yanorei32/aitalked-server:v0.3.7
+    hostname: aitalkedserver
+    container_name: aitalkedserver__aitalkedserver
+
+    restart: unless-stopped
+
+    volumes:
+      - type: bind
+        source: ${VOICEROID_ENVIRONMENT:-./VOICEROID_ENVIRONMENT}
+        target: ${VOICEROID_ENVIRONMENT_TARGET:-/root/.wine/}
+        read_only: ${VOICEROID_ENVIRONMENT_READONLY:-true}
+
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+    networks:
+      - default
+
+  cloudflared:
+    image: cloudflare/cloudflared:2026.9.0
+    hostname: cloudflared
+    container_name: aitalkedserver${VARIANT:-}__cloudflared
+
+    restart: unless-stopped
+
+    environment:
+      TUNNEL_LOGFILE: /dev/stdout
+
+    command: tunnel run --token ${TUNNEL_TOKEN}
+    user: root
+
+    deploy:
+      resources:
+        limits:
+          memory: 4096m
+
+    networks:
+      default:
+
+networks:
+  default:
+    name: aitalkedserver${VARIANT:-}__default
