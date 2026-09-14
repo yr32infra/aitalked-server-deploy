@@ -15,7 +15,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1g
+          memory: 4g
 
     networks:
       - default
@@ -36,7 +36,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 4096m
+          memory: 256m
 
     networks:
       default:
