@@ -2,7 +2,7 @@ services:
   aitalkedserver:
     image: ghcr.io/yanorei32/aitalked-server:v0.3.7
     hostname: aitalkedserver
-    container_name: aitalkedserver__aitalkedserver
+    container_name: aitalkedserver${VARIANT:-}__aitalkedserver
 
     restart: unless-stopped
 
