@@ -12,6 +12,8 @@ services:
         target: ${VOICEROID_ENVIRONMENT_TARGET:-/root/.wine/}
         read_only: ${VOICEROID_ENVIRONMENT_READONLY:-true}
 
+    env_file: .aitalked-server.env
+
     deploy:
       resources:
         limits:
