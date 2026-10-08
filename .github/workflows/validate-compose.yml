@@ -21,6 +21,8 @@ jobs:
           shopt -s globstar
           set -eux
 
+          touch .aitalked-server.env
+
           for f in **/docker-compose.yml; do
               if ! docker compose --file "$f" config --quiet; then
                   exit 1
